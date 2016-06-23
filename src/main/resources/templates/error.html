@@ -1,0 +1,11 @@
+#include("/common/header.html")
+<h1>Error Page</h1>
+<p>Application has encountered an error. Please contact support on
+	...</p>
+
+
+<div>Failed URL: $url</div>
+<div>Exception: $exception.message</div>
+#foreach($e in $exception.stackTrace) $e #end
+
+#include("/common/footer.html")

@@ -1,0 +1,30 @@
+#include("/common/header.html")
+
+<div class="form-group">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>用例集</th>
+				<th>通过数</th>
+				<th>失败数</th>
+				<th>报告时间</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			#foreach ($t in $reports)
+			<tr>
+				<td>$t.id</td>
+				<td>$t.httpSuiteName</td>
+				<td>$t.pass</td>
+				<td>$t.fail</td>
+				<td>$!DateTool.format('yyyy-MM-dd HH:mm:ss', $t.time)</td>
+			</tr>
+			#end
+		</tbody>
+	</table>
+</div>
+#include("/common/footer.html")
+
+

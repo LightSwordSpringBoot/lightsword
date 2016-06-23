@@ -1,0 +1,48 @@
+.teda-form {
+	width: 100%;
+	padding: 20px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.teda-label {
+	text-align: right;
+}
+
+.teda-guide {
+	width: auto;
+	margin-left: 10px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.btn-teda {
+	margin-left: 200px;
+}
+
+.teda-foot {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.myjsoneditor {
+	width: 100%;
+	height: 500px;
+	padding: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.left-btn {
+	float: left;
+	margin-left: 10px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.right-btn {
+	float: right;
+	margin-left: 10px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
