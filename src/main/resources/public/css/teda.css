@@ -1,5 +1,5 @@
 .teda-form {
-	width: 100%;
+	width: 1200px;
 	padding: 20px;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -16,33 +16,13 @@
 	margin-bottom: 20px;
 }
 
+.teda-table {
+	word-break: keep-all;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .btn-teda {
 	margin-left: 200px;
-}
-
-.teda-foot {
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-.myjsoneditor {
-	width: 100%;
-	height: 500px;
-	padding: 0px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-.left-btn {
-	float: left;
-	margin-left: 10px;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-.right-btn {
-	float: right;
-	margin-left: 10px;
-	margin-top: 20px;
-	margin-bottom: 20px;
 }

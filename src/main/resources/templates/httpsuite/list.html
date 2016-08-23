@@ -1,27 +1,23 @@
-#include("/common/header.html")
-<div class="form-group">
+#parse("/common/header.html")
 
-	<div>
-		<a href="/httpsuite/newPage" class='btn btn-info left-btn'>新增http用例集</a>
-	</div>
+<a href="/httpsuite/newPage" class='btn btn-info left-btn'>新增http用例集</a>
 
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>用例集</th>
-			</tr>
-		</thead>
-		<tbody>
-			#foreach ($t in $HttpSuites)
-			<tr>
-				<td>$t.id</td>
-				<td><a href='/httpapi/listHttpSuiteTestCase?httpSuiteId=$t.id'>$t.name</a></td>
-			</tr>
-			#end
-		</tbody>
-	</table>
-</div>
-#include("/common/footer.html")
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>用例集</th>
+    </tr>
+    </thead>
+    <tbody>
+    #foreach ($t in $HttpSuites)
+    <tr>
+        <td>$t.id</td>
+        <td><a href='/httpapi/listHttpSuiteTestCase?httpSuiteId=$t.id'>$t.name</a></td>
+    </tr>
+    #end
+    </tbody>
+</table>
+#parse("/common/footer.html")
 
 
