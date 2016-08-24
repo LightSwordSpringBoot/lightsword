@@ -1,0 +1,103 @@
+#parse("/common/header.html")
+
+<div ng-app="filterApp" ng-controller="filterCtrl" class="container-fluid">
+    <div class="form-horizontal">
+        <div class="form-group">
+
+            Search:<input type="text" ng-model="ruleContent">
+            <table class="table table-hover table-success table-bordered">
+                <thead>
+                <tr>
+                    <th>Index</th>
+                    <th>Content</th>
+                </tr>
+                </thead>
+
+                <tbody ng-repeat="rule in unixRules | filter: ruleContent">
+                <tr>
+                    <td>{{rule.index}}</td>
+                    <td>{{rule.content}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <div class="form-group">
+
+
+        </div>
+        <div class="form-group">
+
+
+        </div>
+
+        <div class="form-group">
+
+
+        </div>
+
+        <div class="form-group">
+
+
+        </div>
+
+        <div class="form-group">
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<script>
+    var app = angular.module('filterApp', [])
+    app.controller('filterCtrl', function ($scope) {
+        $scope.unixRules = [
+            {
+                index: 1250,
+                content: "小即是美"
+            },
+            {
+                index: 1750,
+                content: "让每一个程序只做好一件事情"
+            },
+            {
+                index: 2016,
+                content: "尽快建立原型"
+            },
+            {
+                index: 1004,
+                content: "舍高效率而取可移植性"
+            },
+            {
+                index: 1235,
+                content: "使用纯文本文件来存储数据"
+            },
+            {
+                index: 7886,
+                content: "充分利用软件的杠杆效应"
+            },
+            {
+                index: 9657,
+                content: "使用shell脚本来提高杠杆效应和可移植性"
+            },
+            {
+                index: 1328,
+                content: "避免强制性的用户界面"
+            },
+            {
+                index: 1902,
+                content: "让每一个程序都成为过滤器"
+            }
+
+        ]
+    })
+
+
+</script>
+#parse("/common/footer.html")
