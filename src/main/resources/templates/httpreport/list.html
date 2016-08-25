@@ -1,14 +1,14 @@
 #parse("/common/header.html")
 <div class="box">
-    <table class="table table-hover">
+    <table id="dataTable" class="table table-hover">
         <thead>
         <tr>
             <th>Id</th>
             <th>用例集</th>
             <th>通过数</th>
             <th>失败数</th>
+            <th>成功率</th>
             <th>报告时间</th>
-
         </tr>
         </thead>
         <tbody>
@@ -18,12 +18,175 @@
             <td>$t.httpSuiteName</td>
             <td>$t.pass</td>
             <td>$t.fail</td>
+            <td>$t.rate</td>
             <td>$!DateTool.format('yyyy-MM-dd HH:mm:ss', $t.time)</td>
         </tr>
         #end
         </tbody>
     </table>
 </div>
+
+<section class="content-header">
+    <h1>
+        质量趋势图
+        <small></small>
+    </h1>
+</section>
+
+<div class="box">
+    <div id="quality-trend"></div>
+</div>
+
+
+<div class="box">
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</div>
+
+
+<script>
+
+    $(function () {
+
+        $('#dataTable').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true
+        })
+
+
+        var chart = AmCharts.makeChart("quality-trend", {
+            "type": "serial",
+            "theme": "light",
+
+            "dataDateFormat": "YYYY-MM-DD",
+            "dataProvider": $trendList,
+
+            "addClassNames": true,
+            "startDuration": 1,
+            //"color": "#FFFFFF",
+            "marginLeft": 0,
+
+            "categoryField": "id", // 横坐标
+
+            "graphs": [{
+                "id": "g1",
+                "valueField": "totalCases",
+                "title": "用例总数",
+                "type": "column",
+                "fillAlphas": 0.9,
+                "balloonText": "用例数: [[value]] ",
+                "legendValueText": "用例数: [[value]] ",
+                "legendPeriodValueText": "total: [[value.sum]] ",
+                "lineColor": "#5555ff",
+                "alphaField": "alpha"
+            }, {
+                "id": "g2",
+                "valueField": "failed",
+                "classNameField": "bulletClass",
+                "title": "失败数",
+                "type": "line",
+                "lineColor": "#ff3333",
+                "lineThickness": 1,
+                "legendValueText": "[[description]]/[[value]]",
+                "descriptionField": "",
+                "bullet": "round",
+                "bulletSizeField": "",
+                "bulletBorderColor": "#ff3333",
+                "bulletBorderAlpha": 1,
+                "bulletBorderThickness": 2,
+                "bulletColor": "#ff3333",
+                "labelText": "[[failed]]",
+                "labelPosition": "right",
+                "balloonText": "[[value]]",
+                "showBalloon": true,
+                "animationPlayed": true
+            }, {
+                "id": "g3",
+                "title": "通过率",
+                "valueField": "rate",
+                "type": "line",
+                "lineColor": "#55ffcc",
+                "balloonText": "通过率[[value]]%",
+                "lineThickness": 1.6,
+                "legendValueText": "通过率[[value]] %",
+                "bullet": "square",
+                "bulletBorderColor": "#55ffcc",
+                "bulletBorderThickness": 1,
+                "bulletBorderAlpha": 1,
+                "dashLengthField": "dashLength",
+                "animationPlayed": true
+            }],
+
+            "chartCursor": {
+                "zoomable": false,
+                "categoryBalloonDateFormat": "DD",
+                "cursorAlpha": 0,
+                "valueBalloonsEnabled": false
+            },
+            "legend": {
+                "bulletType": "round",
+                "equalWidths": false,
+                "valueWidth": 120,
+                "useGraphSettings": true,
+                //"color": "#FFFFFF"
+            }
+        }) // amChart , https://www.amcharts.com/demos/css-animations/
+
+
+        // highchart
+        $('#container').highcharts({
+            chart: {
+                type: 'area'
+            },
+            title: {
+                text: '通过率'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [],
+                tickmarkPlacement: 'on',
+                title: {
+                    enabled: false
+                }
+            },
+            yAxis: {
+                title: {
+                    text: '%'
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value;
+                    }
+                }
+            },
+            tooltip: {
+                shared: true,
+                valueSuffix: ' %'
+            },
+            plotOptions: {
+                area: {
+                    stacking: 'normal',
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    marker: {
+                        lineWidth: 1,
+                        lineColor: '#666666'
+                    }
+                }
+            },
+            series: [{
+                name: '通过率',
+                data: $rateList
+            }]
+        })
+
+
+    })
+
+</script>
 #parse("/common/footer.html")
-
-
