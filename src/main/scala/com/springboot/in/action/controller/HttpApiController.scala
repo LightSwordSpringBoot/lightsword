@@ -199,7 +199,7 @@ class HttpApiController @Autowired()(
     val total: Double = pass + fail
     var rate: Double = 0
     if (total != 0) {
-      rate = pass / total * 100
+      rate = ("%.2f".format(pass / total * 100)).toDouble
     }
 
     HttpReport.rate = rate
