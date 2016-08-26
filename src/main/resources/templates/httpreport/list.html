@@ -71,10 +71,32 @@
 
             "categoryField": "id", // 横坐标
 
+            "valueAxes": [{
+                "id": "a1",
+                "title": "用例总数",
+                "gridAlpha": 0,
+                "axisAlpha": 0
+            }, {
+                "id": "a2",
+                "title": "",
+                "position": "right",
+                "gridAlpha": 0,
+                "axisAlpha": 0,
+                "labelsEnabled": false
+            }, {
+                "id": "a3",
+                "title": "失败数",
+                "position": "right",
+                "gridAlpha": 0,
+                "axisAlpha": 0,
+                "inside": true,
+            }],
+
             "graphs": [{
                 "id": "g1",
                 "valueField": "totalCases",
                 "title": "用例总数",
+                "valueAxis": "a1",
                 "type": "column",
                 "fillAlphas": 0.9,
                 "balloonText": "用例数: [[value]] ",
@@ -85,6 +107,7 @@
             }, {
                 "id": "g2",
                 "valueField": "rate",
+                "valueAxis": "a2",
                 "classNameField": "bulletClass",
                 "title": "通过率",
                 "type": "line",
@@ -93,11 +116,11 @@
                 "legendValueText": "[[value]]%",
                 "descriptionField": "",
                 "bullet": "round",
-                "bulletSizeField": "",
+                "bulletSizeField": "[[rate/10]]",
                 "bulletBorderColor": "#2AB4BE",
                 "bulletBorderAlpha": 1,
                 "bulletBorderThickness": 2,
-                "bulletColor": "#2AB4BE",
+                "bulletColor": "#2AB499",
                 "labelText": "[[rate]]%",
                 "labelPosition": "right",
                 "balloonText": "[[value]]",
@@ -106,13 +129,15 @@
             }, {
                 "id": "g3",
                 "title": "失败数",
+                "valueAxis": "a3",
                 "valueField": "failed",
                 "type": "line",
                 "lineColor": "#f36a5a",
                 "balloonText": "[[value]]",
                 "lineThickness": 1.6,
                 "legendValueText": "[[value]] ",
-                "bullet": "round",
+                "bullet": "square",
+                "bulletSizeField": "failed",
                 "bulletBorderColor": "#f36a5a",
                 "bulletBorderThickness": 1,
                 "bulletBorderAlpha": 1,

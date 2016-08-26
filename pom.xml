@@ -106,6 +106,18 @@
             <version>3.2.0</version>
         </dependency>
 
+        <!--
+            devtools可以实现页面热部署（即页面修改后会立即生效，这个可以直接在application.properties文件中配置spring.thymeleaf.cache=false来实现），
+             实现类文件热部署（类文件修改后不会立即生效），实现对属性文件的热部署。
+             即devtools会监听classpath下的文件变动，并且会立即重启应用（发生在保存时机），注意：因为其采用的虚拟机机制，该项重启是很快的
+        -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-devtools</artifactId>-->
+            <!--<optional>true</optional>&lt;!&ndash; optional=true,依赖不会传递，该项目依赖devtools；之后依赖myboot项目的项目如果想要使用devtools，需要重新引入 &ndash;&gt;-->
+        <!--</dependency>-->
+
+
     </dependencies>
 
     <build>
@@ -140,10 +152,6 @@
                         </launcher>
                     </launchers>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
                 <dependencies>
                     <!-- spring热部署-->
                     <dependency>
@@ -152,7 +160,13 @@
                         <version>1.2.6.RELEASE</version>
                     </dependency>
                 </dependencies>
-
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--<configuration>-->
+                    <!--<fork>true</fork>&lt;!&ndash; 如果没有该项配置，肯呢个devtools不会起作用，即应用不会restart &ndash;&gt;-->
+                <!--</configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
