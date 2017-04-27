@@ -5,6 +5,7 @@ import java.util
 import com.alibaba.fastjson.serializer.SerializerFeature
 import com.springboot.in.action.dao.HttpReportDao
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.{RequestMapping, RestController}
 import org.springframework.web.servlet.ModelAndView
@@ -18,6 +19,7 @@ class HttpReportController @Autowired()(val HttpReportDao: HttpReportDao) {
   @RequestMapping(value = {
     Array("", "/")
   })
+  @PreAuthorize("hasRole('ADMIN')") // Spring Security默认的角色前缀是”ROLE_”,使用hasRole方法时已经默认加上了
   def list(model: Model) = {
     val reports = HttpReportDao.findAll
     model.addAttribute("reports", reports)
