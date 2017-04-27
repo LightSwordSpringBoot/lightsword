@@ -1,11 +1,14 @@
 #parse("/common/header.html")
-<h1>Error Page</h1>
-<p>Application has encountered an error. Please contact support on
-	...</p>
+<h1>系统异常统一处理页面</h1>
 
+<h3>异常消息: $errorMessage</h3>
 
-<div>Failed URL: $url</div>
-<div>Exception: $exception.message</div>
-#foreach($e in $exception.stackTrace) $e #end
+<h3>异常堆栈信息：</h3>
+<code>
+    #foreach($e in $stackTrace)
+    $e
+    #end
+</code>
+
 
 #parse("/common/footer.html")

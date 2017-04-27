@@ -8,6 +8,7 @@ import com.springboot.in.action.dao.{HttpApiDao, HttpReportDao, HttpSuiteDao}
 import com.springboot.in.action.engine.OkHttp
 import com.springboot.in.action.entity.{HttpApi, HttpReport}
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation._
 import org.springframework.web.servlet.ModelAndView
@@ -21,6 +22,7 @@ class HttpApiController @Autowired()(
                                       val HttpApiDao: HttpApiDao,
                                       val HttpReportDao: HttpReportDao) {
 
+  @PreAuthorize("hasRole('USER')")
   @RequestMapping(value = {
     Array("", "/")
   }, method = Array(RequestMethod.GET))
