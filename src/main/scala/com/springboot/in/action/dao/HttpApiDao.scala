@@ -21,8 +21,8 @@ trait HttpApiDao extends CrudRepository[HttpApi, Integer] {
   @Query(value = "SELECT id FROM http_api where http_suite_id = ?1", nativeQuery = true)
   def listTestCaseId(httpSuiteId: Integer): List[Integer] // 隐式转换,直接用scala的List会报错:javax.persistence.NonUniqueResultException: result returns more than one elements] with root cause
 
-  //  @Query(value = "SELECT * FROM http_api where name like %?1% ", nativeQuery = true) // like '%?%'
-  //  def findByName(name: String): List[HttpApi]
+   @Query(value = "SELECT * FROM http_api where name like %?1% ", nativeQuery = true) // like '%?%'
+   def findByName(name: String): List[HttpApi]
 
   @Query(value = "select count(*) from http_api where http_suite_id = ?1 and state = 1", nativeQuery = true)
   def countPass(httpSuiteId: Integer): Int

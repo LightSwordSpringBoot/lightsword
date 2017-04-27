@@ -8,18 +8,21 @@ import com.springboot.in.action.dao.{HttpApiDao, HttpReportDao, HttpSuiteDao}
 import com.springboot.in.action.engine.OkHttp
 import com.springboot.in.action.entity.{HttpApi, HttpReport}
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.{PathVariable, RequestMapping, RequestMethod, RequestParam, ResponseBody, RestController}
+import org.springframework.web.bind.annotation._
 import org.springframework.web.servlet.ModelAndView
+
 import scala.collection.JavaConversions._
 
 @RestController
 @RequestMapping(Array("/httpapi"))
-class HttpApiController @Autowired() (
-    val HttpSuiteDao: HttpSuiteDao,
-    val HttpApiDao: HttpApiDao,
-    val HttpReportDao: HttpReportDao) {
+class HttpApiController @Autowired()(
+                                      val HttpSuiteDao: HttpSuiteDao,
+                                      val HttpApiDao: HttpApiDao,
+                                      val HttpReportDao: HttpReportDao) {
 
+  @PreAuthorize("hasRole('USER')")
   @RequestMapping(value = {
     Array("", "/")
   }, method = Array(RequestMethod.GET))
@@ -61,8 +64,8 @@ class HttpApiController @Autowired() (
   }
 
   /**
-   * 项目下面的用例编辑
-   */
+    * 项目下面的用例编辑
+    */
   @RequestMapping(Array("/editPage/{caseId}"))
   def goEditPage(model: Model, @PathVariable(value = "caseId") caseId: Integer, @RequestParam(value = "httpSuiteId") httpSuiteId: Integer) = {
     val httpapi = HttpApiDao.findOne(caseId)
@@ -92,13 +95,13 @@ class HttpApiController @Autowired() (
     method = Array(RequestMethod.POST))
   @ResponseBody
   def newOne(@RequestParam(value = "httpSuiteId") httpSuiteId: Integer,
-    @RequestParam(value = "name") name: String,
-    @RequestParam(value = "url") url: String,
-    @RequestParam(value = "method") method: String,
-    @RequestParam(value = "paramJsonStr") paramJsonStr: String,
-    @RequestParam(value = "expectOutput") expectOutput: String,
-    @RequestParam(value = "actualOutput") actualOutput: String,
-    @RequestParam(value = "owner") owner: String) = {
+             @RequestParam(value = "name") name: String,
+             @RequestParam(value = "url") url: String,
+             @RequestParam(value = "method") method: String,
+             @RequestParam(value = "paramJsonStr") paramJsonStr: String,
+             @RequestParam(value = "expectOutput") expectOutput: String,
+             @RequestParam(value = "actualOutput") actualOutput: String,
+             @RequestParam(value = "owner") owner: String) = {
     val httpapi = new HttpApi()
     httpapi.httpSuiteId = httpSuiteId
     httpapi.name = name
@@ -119,11 +122,11 @@ class HttpApiController @Autowired() (
     method = Array(RequestMethod.POST))
   @ResponseBody
   def editOne(@RequestParam(value = "id") id: Integer,
-    @RequestParam(value = "name") name: String,
-    @RequestParam(value = "url") url: String,
-    @RequestParam(value = "method") method: String,
-    @RequestParam(value = "paramJsonStr") paramJsonStr: String,
-    @RequestParam(value = "expectOutput") expectOutput: String) = {
+              @RequestParam(value = "name") name: String,
+              @RequestParam(value = "url") url: String,
+              @RequestParam(value = "method") method: String,
+              @RequestParam(value = "paramJsonStr") paramJsonStr: String,
+              @RequestParam(value = "expectOutput") expectOutput: String) = {
     val httpapi = HttpApiDao.findOne(id)
     httpapi.name = name
     httpapi.url = url
@@ -135,28 +138,30 @@ class HttpApiController @Autowired() (
   }
 
   /**
-   * 在新建用例页面,调试用例用
-   */
+    * 在新建用例页面,调试用例用
+    */
   @RequestMapping(value = Array("/debugTest"),
     method = Array(RequestMethod.GET))
   @ResponseBody
   def debugTest(@RequestParam(value = "url") url: String,
-    @RequestParam(value = "method") method: String,
-    @RequestParam(value = "paramJsonStr") paramJsonStr: String) = {
+                @RequestParam(value = "method") method: String,
+                @RequestParam(value = "paramJsonStr") paramJsonStr: String) = {
     OkHttp.run(url, method, paramJsonStr)
   }
 
   /**
-   * 执行用例
-   */
+    * 执行用例
+    */
   @RequestMapping(value = Array("/runTest"),
     method = Array(RequestMethod.GET))
   @ResponseBody
-  def debugTest(@RequestParam(value = "id") id: Integer) = { runTestCase(id) }
+  def debugTest(@RequestParam(value = "id") id: Integer) = {
+    runTestCase(id)
+  }
 
   /**
-   * 回归项目全部用例,每个用例单独起一个线程跑
-   */
+    * 回归项目全部用例,每个用例单独起一个线程跑
+    */
   @RequestMapping(value = Array("/testHttpSuite"),
     method = Array(RequestMethod.GET))
   @ResponseBody
@@ -192,14 +197,23 @@ class HttpApiController @Autowired() (
     HttpReport.httpSuiteName = httpSuiteName
     HttpReport.pass = pass
     HttpReport.fail = fail
+
+    val total: Double = pass + fail
+    var rate: Double = 0
+    if (total != 0) {
+      rate = ("%.2f".format(pass / total * 100)).toDouble
+    }
+
+    HttpReport.rate = rate
+
     HttpReport.time = new Date
     println(JSON.toJSONString(HttpReport, true))
     HttpReport
   }
 
   /**
-   * 执行caseId这个用例
-   */
+    * 执行caseId这个用例
+    */
 
   def runTestCase(id: Integer) = {
     val tc = HttpApiDao.findOne(id)
@@ -225,8 +239,8 @@ class HttpApiController @Autowired() (
   }
 
   /**
-   * TestCaseRunner
-   */
+    * TestCaseRunner
+    */
   class TestCaseRunner(val caseId: Integer, val countDownLatch: CountDownLatch) extends Thread {
 
     override def run() {
@@ -234,4 +248,5 @@ class HttpApiController @Autowired() (
       countDownLatch.countDown
     }
   }
+
 }

@@ -1,29 +1,28 @@
 package com.springboot.in.action.controller
 
+import java.util
 import java.util.Date
 
-import com.alibaba.fastjson.JSONObject
-import org.springframework.web.bind.annotation.{RequestMapping, RequestParam, RestController}
+import org.springframework.web.bind.annotation.{RequestMapping, RestController}
 
 /**
- * Created by jack on 16/6/24.
- *
- * 系统内部测试用
- */
+  * Created by jack on 16/6/24.
+  *
+  * 系统内部测试用
+  */
 
 @RestController
+@RequestMapping(Array("/hello"))
 class HelloController {
 
-  @RequestMapping(Array("/hello"))
-  def greeting(@RequestParam(value="name", defaultValue="LightSword")  name: String) = {
+  @RequestMapping(Array("", "/"))
+  def greeting() = {
     val now = new Date
-    val content =  "Hello, " + name + "! Now is: " + now
-
-    val json = new JSONObject
-    json.put("conent", content)
-
+    val content = "Hello, ! Now is: " + now
+    val json = new util.HashMap[String, String]
+    json.put("content", content)
     json
-
   }
+
 
 }

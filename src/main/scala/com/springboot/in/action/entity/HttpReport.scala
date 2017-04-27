@@ -1,9 +1,10 @@
 package com.springboot.in.action.entity
 
 import java.util.Date
-import javax.persistence.{ Entity, GeneratedValue, GenerationType, Id }
-import scala.language.implicitConversions
+import javax.persistence.{Entity, GeneratedValue, GenerationType, Id}
+
 import scala.beans.BeanProperty
+import scala.language.implicitConversions
 
 @Entity
 class HttpReport {
@@ -23,6 +24,12 @@ class HttpReport {
 
   @BeanProperty
   var fail: Integer = _
+
+  /**
+    * 通过率 rate %
+    */
+  @BeanProperty
+  var rate: Double = _
 
   @BeanProperty
   var time: Date = _

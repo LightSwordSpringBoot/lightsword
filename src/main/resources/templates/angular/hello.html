@@ -1,0 +1,134 @@
+#parse("/common/header.html")
+
+<!-- velocity的后台数据 -->
+<div class="teda-guide">$content</div>
+
+<div class="container">
+    <!-- angular ng-app -->
+    <div ng-app="myApp" ng-controller="myCtrl" class="form-horizontal">
+
+        <div class="form-group-lg">
+            请输入一个名字：<input type="text" ng-model="bindName"/>
+            Hello <span ng-bind="bindName"></span>
+        </div>
+
+        <div class="form-group-lg">
+            <label>请选择</label>
+            <select ng-model="selectedName" ng-options="x for x in selectedNames">
+            </select>
+        </div>
+
+        <div class="form-group-lg">
+            <p>名字 : <input type="text" ng-model="name"></p>
+            <h1>Hello {{name}}</h1>
+        </div>
+
+        <div class="form-group-lg">
+            名: <input type="text" ng-model="firstName"><br>
+            姓: <input type="text" ng-model="lastName"><br>
+            <br>
+            姓名: {{firstName + " " + lastName}}
+        </div>
+
+        <div class="form-group-lg">
+            <ul>
+                <li ng-repeat="phone in phones">
+                    <span>{{phone.name}}</span>
+                    <p>{{phone.snippet}}</p>
+                </li>
+            </ul>
+        </div>
+
+        <table class="table table-hover table-success table-bordered">
+            <thead>
+            <tr>
+                <th>Index</th>
+                <th>Content</th>
+            </tr>
+            </thead>
+
+            <tbody ng-repeat="rule in unixRules">
+            <tr>
+                <td>{{rule.index}}</td>
+                <td>{{rule.content}}</td>
+            </tr>
+            </tbody>
+
+        </table>
+
+    </div><!-- End Scope Of AngularJS -->
+
+
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+
+        $scope.selectedNames = ["Google", "Alibaba", "Tencent"]
+        $scope.firstName = "Jack"
+        $scope.lastName = "Chen"
+
+        $scope.phones = [
+            {
+                name: 'Nexus S',
+                snippet: 'Fast just got faster with Nexus S.'
+            }, {
+                name: 'Motorola XOOM™ with Wi-Fi',
+                snippet: 'The Next, Next Generation tablet.'
+            }, {
+                name: 'MOTOROLA XOOM™',
+                snippet: 'The Next, Next Generation tablet.'
+            }
+        ]
+
+        $scope.unixRules = [
+            {
+                index: 1,
+                content: "小即是美"
+            },
+            {
+                index: 2,
+                content: "让每一个程序只做好一件事情"
+            },
+            {
+                index: 3,
+                content: "尽快建立原型"
+            }
+            ,
+            {
+                index: 4,
+                content: "舍高效率而取可移植性"
+            }
+            ,
+            {
+                index: 5,
+                content: "使用纯文本文件来存储数据"
+            }
+            ,
+            {
+                index: 6,
+                content: "充分利用软件的杠杆效应"
+            }
+            ,
+            {
+                index: 7,
+                content: "使用shell脚本来提高杠杆效应和可移植性"
+            }
+            ,
+            {
+                index: 8,
+                content: "避免强制性的用户界面"
+            },
+            {
+                index: 9,
+                content: "让每一个程序都成为过滤器"
+            }
+
+        ]
+
+
+    });
+</script>
+
+#parse("/common/footer.html")

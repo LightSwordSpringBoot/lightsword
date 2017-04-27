@@ -10,4 +10,4 @@ https://www.gitbook.com/book/jxgxldl/spring-boot2016/details
 
 ### Scala
 
-https://www.gitbook.com/@universsky/dashboard
+https://www.gitbook.com/@universsky/
