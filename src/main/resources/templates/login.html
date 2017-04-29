@@ -13,15 +13,15 @@
             <form name='f' action='/login' method='POST'>
                 <table>
                     <tr>
-                        <td>Username:</td>
+                        <td>用户名:</td>
                         <td><input type='text' name='username' value=''></td>
                     </tr>
                     <tr>
-                        <td>Password:</td>
+                        <td>密码:</td>
                         <td><input type='password' name='password'/></td>
                     </tr>
                     <tr>
-                        <td colspan='2'><input name="submit" type="submit" value="Login"/></td>
+                        <td colspan='2'><input name="submit" type="submit" value="登录"/></td>
                     </tr>
                     <!--<input name="_csrf" type="hidden" value="${_csrf}"/>-->
 
@@ -33,7 +33,7 @@
 
 <script>
     $(function () {
-        $('.f').focus()
+        $('[name=f]').focus()
     })
 </script>
 

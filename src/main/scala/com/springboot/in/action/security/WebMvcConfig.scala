@@ -14,6 +14,5 @@ class WebMvcConfig extends WebMvcConfigurerAdapter {
     */
   override def addViewControllers(registry: ViewControllerRegistry) {
     registry.addViewController("/login").setViewName("/login")
-    registry.addViewController("/403").setViewName("/403")
   }
 }
