@@ -4,6 +4,8 @@ import javax.servlet._
 import javax.servlet.annotation.WebFilter
 import javax.servlet.http.HttpServletRequest
 
+import com.alibaba.fastjson.JSON
+import com.alibaba.fastjson.serializer.SerializerFeature
 import org.springframework.core.annotation.Order
 
 /**
@@ -23,6 +25,9 @@ class LoginFilter extends Filter {
     import org.springframework.security.core.userdetails.UserDetails
 
     val principal = SecurityContextHolder.getContext.getAuthentication.getPrincipal
+
+
+    println("LoginFilter:" + JSON.toJSONString(principal, SerializerFeature.PrettyFormat))
 
     var username = ""
     if (principal.isInstanceOf[UserDetails]) {
