@@ -82,11 +82,11 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
-        <!--<dependency>-->
-            <!--<groupId>org.codehaus.groovy</groupId>-->
-            <!--<artifactId>groovy-all</artifactId>-->
-            <!--<version>${groovy.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
 
 
     </dependencies>

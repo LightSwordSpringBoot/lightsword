@@ -6,7 +6,7 @@
     <property name="APP_NAME" value="lightsword"/>
 
     <contextName>${APP_NAME}</contextName>
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml"/>-->
     <jmxConfigurator/>
 
     <logger name="org.springframework.web" level="INFO"/>
@@ -14,11 +14,28 @@
 
     <logger name="org.apache.velocity.runtime.log" level="INFO"/>
 
+    appender("CONSOLE", ConsoleAppender) {
+    encoder(PatternLayoutEncoder) {
+    pattern = "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n"
+    charset = Charset.forName("utf8")
+    }
+    }
+
+    <property name="LOG_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n"></property>
+    <property name="LOG_FILE_PATTERN" value="${APP_NAME}.%d{yyyy-MM-dd}.log"></property>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
     <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${user.home}/logs/${APP_NAME}</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rolling over -->
-            <FileNamePattern>${APP_NAME}.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${LOG_FILE_PATTERN}</FileNamePattern>
             <!-- keep 30 days' log history -->
             <maxHistory>30</maxHistory>
         </rollingPolicy>
@@ -26,7 +43,7 @@
             <level>ERROR</level>
         </filter>
         <encoder>
-            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
+            <pattern>${LOG_PATTERN}</pattern>
         </encoder>
     </appender>
     <!--TRACE, DEBUG, INFO, WARN, ERROR-->
