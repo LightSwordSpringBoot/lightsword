@@ -1,0 +1,40 @@
+#parse("/common/header.html")
+
+<div class="container-fluid">
+
+    <div class="box box-success">
+        <div class="box-header">
+            <h2>LightSword自动化测试平台（<a href="http://localhost:8888/">LightSword</a>)</h2>
+        </div>
+
+        <div class="box-body">
+
+            <h3>登录</h3>
+            <form name='f' action='/login' method='POST'>
+                <table>
+                    <tr>
+                        <td>用户名:</td>
+                        <td><input type='text' name='username' value=''></td>
+                    </tr>
+                    <tr>
+                        <td>密码:</td>
+                        <td><input type='password' name='password'/></td>
+                    </tr>
+                    <tr>
+                        <td colspan='2'><input name="submit" type="submit" value="登录"/></td>
+                    </tr>
+                    <!--<input name="_csrf" type="hidden" value="${_csrf}"/>-->
+
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('[name=f]').focus()
+    })
+</script>
+
+#parse("/common/footer.html")
